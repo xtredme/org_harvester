@@ -1,0 +1,69 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'homepage:index' %}">
+        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Крепость
+      </a>
+      {% with request.resolver_match.view_name as view_name %}        
+        <ul class="nav  nav-pills">
+          <li class="nav-item">              
+            <a class="nav-link {% if view_name == 'blog:index' %} active {% endif %}" href="{% url 'buildings:buildings_view' %}">
+              Объекты
+            </a>
+          </li>
+          <li class="nav-item">              
+            <a class="nav-link {% if view_name == 'pages:about' %} active {% endif %}" href="{% url 'downloader:downloader_view' %}">
+              Загрузчик
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'fortress:fortress_view' %}">
+              Крепость
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'homepage:index' %}">
+              Главная
+            </a>
+          </li>
+                    <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'pages:pages_view' %}">
+              Статика
+            </a>
+          </li>
+                              <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'tbot:tbot_view' %}">
+              Бот
+            </a>
+          </li>
+                                        <li class="nav-item">
+            <a class="nav-link {% if view_name == 'pages:rules' %} active {% endif %}" href="{% url 'users:users_view' %}">
+              Пользователи
+            </a>
+          </li>
+    {% if user.is_authenticated %}
+            <span class="navbar-text">Пользователь: <b>{{ user.username }}</b></span>
+            <!-- Новая кнопка -->
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'password_change' %} active {% endif %}"
+                href="{% url 'users:users_view' %}">Изменить пароль</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'homepage:index' %}">Выйти</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'login' %} active {% endif %}" href="{% url 'homepage:index' %}">Войти</a>
+            </li>
+            <!-- Новая кнопка -->
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'registration' %} active {% endif %}" href="{% url 'homepage:index' %}">Регистрация</a>
+            </li>
+          {% endif %}
+        </ul>
+      {% endwith %}      
+    </div>
+  </nav> 
+</header>
