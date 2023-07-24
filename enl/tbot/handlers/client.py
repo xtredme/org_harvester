@@ -1,9 +1,26 @@
-from keyboards import kb_client
 from aiogram.dispatcher.filters import Text
 from data_base import sql_db, info_mes
 from aiogram import Dispatcher, types
 from create_bot import logger, dp
 from handlers.super_user import AdminOrSuperuserFilter
+from buildings.models import Building
+
+
+async def process_build_command(message: types.Message):
+    try:
+        # Получаем параметры из сообщения после команды "/build"
+        params = message.get_args().strip()
+
+        # Создаем объект модели Building и сохраняем в базу данных
+        building = Building(title=params)
+        building.save()
+
+
+        # Отправляем ответ об успешном сохранении
+        await message.reply("Запись успешно добавлена!")
+    except Exception as e:
+        await message.reply(f"Ошибка при сохранении записи: {str(e)}")
+
 
 
 async def command_start(message: types.Message):
@@ -50,12 +67,17 @@ async def smy_best(message: types.Message): #ловим слово (которо
     await message.reply('Вы хотели сказать: "СМУ лучше всех"?)')
 
 dp.filters_factory.bind(AdminOrSuperuserFilter) # добавляет фильтр использования суперюзера
+
+
+
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(command_start, commands=['start', 'help'])
     dp.register_message_handler(command_smy_people, commands=['состав_сму'])
+    dp.register_message_handler(process_build_command, commands=['build'])
     dp.register_message_handler(photo_last_object, commands=['Фото_последних_объектоввфвф'])
     dp.register_message_handler(smy_menu, commands=['Меню;;;'])
     dp.register_message_handler(smy_best, Text(equals='СМУ', ignore_case=True), state="*")
+
 
 
 
