@@ -16,3 +16,11 @@ class MyUser(AbstractUser):
     work_email = models.EmailField('Рабочий Email', blank=True)
     bio = models.TextField('Биография', blank=True)
     birthday = models.DateField('Дата рождения', blank=True, null=True)
+    mega_admin_status = models.BooleanField('Мега Админ', default=False)
+
+class Banlist(models.Model):
+    banned_id = models.CharField('Забаненый Telegram ID', max_length=100, blank=True, null=True)
+    ban_status = models.BooleanField('Статус бана', default=False, null=True)
+    need_sorry = models.BooleanField('Нужно извиниться', default=False, null=True)
+    created_at = models.DateTimeField('Время создания', auto_now_add=True, null=True)
+

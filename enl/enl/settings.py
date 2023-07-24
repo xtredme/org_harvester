@@ -38,21 +38,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'buildings.apps.BuildingsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tbot.apps.TbotConfig',
     'users.apps.UsersConfig',
-    'buildings.apps.BuildingsConfig',
     'fortress.apps.FortressConfig',
     'pages.apps.PagesConfig',
     'reminders.apps.RemindersConfig',
     'downloader.apps.DownloaderConfig',
     'homepage.apps.HomepageConfig',
     'django_bootstrap5',
+    'tbot.apps.TbotConfig',
 
 ]
 
@@ -94,9 +94,9 @@ WSGI_APPLICATION = 'enl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'mydatabase',
-        'USER': 'пользователь_postgres',
-        'PASSWORD': 'пароль_postgres',
+        'NAME': 'db_harvester',
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
         'HOST': 'localhost',  # или IP-адрес вашего сервера PostgreSQL
         'PORT': '5432',       # порт PostgreSQL (обычно 5432)
     }
